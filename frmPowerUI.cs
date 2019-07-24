@@ -219,7 +219,7 @@ namespace PowerUI
 
                 if (helpText.IndexOf("-detailed", remarksIndex + 1) > 0)
                 {
-                    containsTechnicalDetails = true;
+                    containsDetailedExample = true;
                 }
 
                 if (helpText.IndexOf("-full", remarksIndex + 1) > 0)
@@ -237,7 +237,7 @@ namespace PowerUI
 
             return helpText;
         }
-        
+
         private void GetCommandHelp(string args)
         {
             RunShellCommand(GetHelp_Command, args);
@@ -357,6 +357,15 @@ namespace PowerUI
 
             EnableControls();
 
+        }
+
+        private void FrmPowerUI_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Cleanup
+            foreach (string f in Directory.GetFiles(".", "*.txt"))
+            {
+                File.Delete(f);
+            }
         }
     }
 }

@@ -139,7 +139,7 @@
             this.txtCommandHelpDetails.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCommandHelpDetails.Location = new System.Drawing.Point(26, 484);
             this.txtCommandHelpDetails.Name = "txtCommandHelpDetails";
-            this.txtCommandHelpDetails.Size = new System.Drawing.Size(1154, 372);
+            this.txtCommandHelpDetails.Size = new System.Drawing.Size(1154, 348);
             this.txtCommandHelpDetails.TabIndex = 5;
             this.txtCommandHelpDetails.Text = "";
             // 
@@ -373,6 +373,7 @@
             this.Name = "frmPowerUI";
             this.Text = "Powershell UI Utility";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmPowerUI_FormClosing);
             this.Load += new System.EventHandler(this.frmPowerUI_Load);
             this.grpCommand.ResumeLayout(false);
             this.grpCommand.PerformLayout();
