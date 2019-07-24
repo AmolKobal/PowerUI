@@ -23,10 +23,14 @@ namespace PowerUI
         private bool isPowerShellAvailable = false;
         private FileInfo powerShellInfo;
 
-        private bool containsSampleExample = false;
-        private bool containsDetailedExample = false;
-        private bool containsTechnicalDetails = false;
-        private bool containsOnlineHelp = false;
+        private bool hasSampleExample = false;
+        private bool hasDetailedExample = false;
+        private bool hasTechnicalDetails = false;
+        private bool hasOnlineHelp = false;
+
+        Size commandHelpSize, fullViewButtonSize;
+        Point commandHelpLocation, fullViewButtonLocation;
+        bool fullViewMode = false;
 
         public frmPowerUI()
         {
@@ -35,6 +39,8 @@ namespace PowerUI
 
         private void frmPowerUI_Load(object sender, EventArgs e)
         {
+            txtCommand.BorderStyle = txtCommandType.BorderStyle = txtSource.BorderStyle = txtVersion.BorderStyle = BorderStyle.None;
+            
             CheckForPowershell();
             if (isPowerShellAvailable == false)
             {
@@ -43,21 +49,25 @@ namespace PowerUI
             }
 
             lblPowerShellVersion.Text = "PowerShell => " + powerShellInfo.FullName;
-
-            lblInfo.Text = "Getting All Commands...";
-            lblInfo.Refresh();
-            Thread.Sleep(200);
+            lblPowerShellVersion.Refresh();
+          
+            Thread.Sleep(100);
+            ShowUpdate("Getting All Commands...");
             GetAllPowerShellCommands();
 
-            lblInfo.Text = "All Commands got.";
-            lblInfo.Refresh();
-
-            lblInfo.Text = "Loading All Commands...";
-            lblInfo.Refresh();
-
+            ShowUpdate("Loading All Commands...");
             LoadAllCommands();
 
-            lblInfo.Text = "All Commands loaded.";
+            grpDetails.Visible = true;
+            grpList.Visible = true;
+
+            ShowUpdate("All Commands loaded.");
+        }
+
+        private void ShowUpdate(string message)
+        {
+            lblInfo.Text = message;
+            lblInfo.Left = (this.Width / 2) - (lblInfo.Width / 2);
             lblInfo.Refresh();
         }
 
@@ -79,6 +89,7 @@ namespace PowerUI
 
             listCommands.BackColor = Color.White;
             listCommands.Enabled = false;
+            int itemNo = 0;
 
             foreach (string line in input)
             {
@@ -89,13 +100,51 @@ namespace PowerUI
                     if (commandStarted)
                     {
                         ListViewItem item = new ListViewItem(command[0]);
+                        if (itemNo++ % 2 == 0)
+                            item.ForeColor = Color.DimGray;
+                        else
+                            item.ForeColor = Color.Black;
+
                         listCommands.Items.Add(item);
-                        for (int index = 1; index < command.Length; index++)
+
+                        switch (command.Length)
                         {
-                            item.SubItems.Add(command[index]);
+
+                            case 1:
+                                item.Text = command[0];
+                                item.SubItems.Add("");
+                                item.SubItems.Add("");
+                                item.SubItems.Add("");
+                                break;
+                            case 2:
+                                item.Text = command[1];
+                                item.SubItems.Add(command[0]);
+                                item.SubItems.Add("");
+                                item.SubItems.Add("");
+                                break;
+                            case 3:
+                                item.Text = command[1];
+                                item.SubItems.Add(command[0]);
+                                item.SubItems.Add(command[2]);
+                                item.SubItems.Add("");
+                                break;
+                            case 4:
+                                item.Text = command[1];
+                                item.SubItems.Add(command[0]);
+                                item.SubItems.Add(command[3]);
+                                item.SubItems.Add(command[2]);
+                                break;
+                            default:
+                                break;
                         }
-                        listCommands.TopItem = item;
+
+                        ////for (int index = 1; index < command.Length; index++)
+                        ////{
+                        ////    item.SubItems.Add(command[index]);
+                        ////}
+                        //listCommands.TopItem = item;
                         //listCommands.EnsureVisible(listCommands.Items.Count - 1);
+                        listCommands.EnsureVisible(0);
                         //listCommands.Refresh();
                     }
                     else
@@ -178,8 +227,7 @@ namespace PowerUI
 
         private void Process_Exited(object sender, EventArgs e)
         {
-            lblInfo.Text = "All Commands Loaded.";
-            lblInfo.Refresh();
+            ShowUpdate("");
         }
 
         private void btnGetCommandHelp_Click(object sender, EventArgs e)
@@ -189,7 +237,10 @@ namespace PowerUI
             btnTechnicalInformation.Enabled = false;
             btnOnlineHelp.Enabled = false;
 
-            lblInfo.Text = "Getting details for - " + txtCommand.Text;
+            if (txtCommand.Text == "")
+                ShowUpdate("Getting PowerShell help details");
+            else
+                ShowUpdate("Getting details for $ " + txtCommand.Text);
 
             File.WriteAllText("CommandHelp.txt", "");
             txtCommandHelpDetails.Text = "";
@@ -197,39 +248,41 @@ namespace PowerUI
             txtCommandHelpDetails.Text = File.ReadAllText("CommandHelp.txt");
 
             txtCommandHelpDetails.Text = ParseCommandHelp(txtCommandHelpDetails.Text);
-            lblInfo.Text = "";
+            ShowUpdate("");
 
             EnableControls();
+
+            grpDetails.Text = " " + txtCommand.Text + " ( " + txtCommandType.Text + " ) >";
         }
 
         private string ParseCommandHelp(string helpText)
         {
-            containsOnlineHelp = false;
-            containsTechnicalDetails = false;
-            containsDetailedExample = false;
-            containsSampleExample = false;
+            hasOnlineHelp = false;
+            hasTechnicalDetails = false;
+            hasDetailedExample = false;
+            hasSampleExample = false;
 
             int remarksIndex = helpText.IndexOf("REMARKS");
             if (remarksIndex > 0)
             {
                 if (helpText.IndexOf("-examples", remarksIndex + 1) > 0)
                 {
-                    containsSampleExample = true;
+                    hasSampleExample = true;
                 }
 
                 if (helpText.IndexOf("-detailed", remarksIndex + 1) > 0)
                 {
-                    containsDetailedExample = true;
+                    hasDetailedExample = true;
                 }
 
                 if (helpText.IndexOf("-full", remarksIndex + 1) > 0)
                 {
-                    containsTechnicalDetails = true;
+                    hasTechnicalDetails = true;
                 }
 
                 if (helpText.IndexOf("-online", remarksIndex + 1) > 0)
                 {
-                    containsOnlineHelp = true;
+                    hasOnlineHelp = true;
                 }
 
                 return helpText.Substring(0, remarksIndex);
@@ -252,25 +305,26 @@ namespace PowerUI
 
             ListViewItem item = listCommands.SelectedItems[0];
 
-            txtCommandType.Text = item.SubItems[0].Text;
-            txtCommand.Text = item.SubItems[1].Text;
+            txtCommand.Text = item.SubItems[0].Text;
+            txtCommandType.Text = item.SubItems[1].Text;
 
-            if (item.SubItems.Count > 1)
-            {
-                txtVersion.Text = item.SubItems[2].Text;
-            }
-            if (item.SubItems.Count > 2)
-            {
-                txtSource.Text = item.SubItems[3].Text;
-            }
+            //if (item.SubItems.Count > 1)
+            //{
+            txtSource.Text = item.SubItems[2].Text;
+            //}
+            //if (item.SubItems.Count > 2)
+            //{
+            txtVersion.Text = item.SubItems[3].Text;
+            //}
+
         }
 
         private void btnSampleExample_Click(object sender, EventArgs e)
         {
             DisableControls();
 
-            lblInfo.Text = "Getting " + ((Button)sender).Text + " details";
-            lblInfo.Refresh();
+            ShowUpdate("Getting " + ((Button)sender).Text + " details");
+
             txtCommandHelpDetails.Text = "";
             txtCommandHelpDetails.Refresh();
 
@@ -298,18 +352,18 @@ namespace PowerUI
         private void EnableControls()
         {
             btnGetCommandHelp.Enabled = true;
-            btnSampleExample.Enabled = containsSampleExample;
-            btnDetailedExample.Enabled = containsDetailedExample;
-            btnTechnicalInformation.Enabled = containsTechnicalDetails;
-            btnOnlineHelp.Enabled = containsOnlineHelp;
+            btnSampleExample.Enabled = hasSampleExample;
+            btnDetailedExample.Enabled = hasDetailedExample;
+            btnTechnicalInformation.Enabled = hasTechnicalDetails;
+            btnOnlineHelp.Enabled = hasOnlineHelp;
         }
 
         private void btnDetailedExample_Click(object sender, EventArgs e)
         {
             DisableControls();
 
-            lblInfo.Text = "Getting " + ((Button)sender).Text + " details";
-            lblInfo.Refresh();
+            ShowUpdate("Getting " + ((Button)sender).Text + " details");
+
             txtCommandHelpDetails.Text = "";
             txtCommandHelpDetails.Refresh();
 
@@ -330,8 +384,8 @@ namespace PowerUI
         {
             DisableControls();
 
-            lblInfo.Text = "Getting " + ((Button)sender).Text + " details";
-            lblInfo.Refresh();
+            ShowUpdate("Getting " + ((Button)sender).Text + " details");
+
             txtCommandHelpDetails.Text = "";
             txtCommandHelpDetails.Refresh();
 
@@ -351,7 +405,7 @@ namespace PowerUI
         {
             DisableControls();
 
-            lblInfo.Text = "Getting " + ((Button)sender).Text + " details";
+            ShowUpdate("Getting " + ((Button)sender).Text + " details");
 
             GetCommandHelp(txtCommand.Text + " -online");
 
@@ -366,6 +420,81 @@ namespace PowerUI
             {
                 File.Delete(f);
             }
+        }
+
+        private void btnFullView_Click(object sender, EventArgs e)
+        {
+            if (fullViewMode)
+            {
+                ResetFullView();
+            }
+            else
+            {
+                SetFullView();
+            }
+        }
+
+        private void FrmPowerUI_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Escape:
+                    if (fullViewMode)
+                    {
+                        ResetFullView();
+                        e.Handled = true;
+                    }
+                    break;
+                case Keys.F12:
+                    if (btnFullView.Enabled)
+                    {
+                        SetFullView();
+                        e.Handled = true;
+                    }
+                    break;
+            }
+        }
+
+        private void SetFullView()
+        {
+            commandHelpSize = txtCommandHelpDetails.Size;
+            commandHelpLocation = txtCommandHelpDetails.Location;
+            fullViewButtonSize = btnFullView.Size;
+            fullViewButtonLocation = btnFullView.Location;
+
+            txtCommandHelpDetails.Parent = this;
+
+            txtCommandHelpDetails.Left = 08;
+            txtCommandHelpDetails.Top = lblPowerShellVersion.Top + lblPowerShellVersion.Height + 5;
+            txtCommandHelpDetails.Width = this.Width - 30;
+            txtCommandHelpDetails.Height = this.Height - 80;
+            txtCommandHelpDetails.BringToFront();
+
+            btnFullView.Parent = this;
+            btnFullView.Top = txtCommandHelpDetails.Top - btnFullView.Height;
+            btnFullView.Text = "Close Full View (ESC)";
+            btnFullView.BackColor = Color.Black;
+            btnFullView.ForeColor = Color.White;
+            btnFullView.BringToFront();
+
+            fullViewMode = true;
+        }
+
+        private void ResetFullView()
+        {
+            txtCommandHelpDetails.Parent = grpDetails;
+            btnFullView.Parent = grpDetails;
+
+            txtCommandHelpDetails.Size = commandHelpSize;
+            txtCommandHelpDetails.Location = commandHelpLocation;
+
+            btnFullView.Size = fullViewButtonSize;
+            btnFullView.Location = fullViewButtonLocation;
+            btnFullView.ForeColor = Color.Navy;
+            btnFullView.UseVisualStyleBackColor = true;
+            btnFullView.Text = "< Full View (F12) >";
+
+            fullViewMode = false;
         }
     }
 }
