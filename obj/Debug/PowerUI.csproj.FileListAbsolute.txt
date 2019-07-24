@@ -1,0 +1,10 @@
+C:\MyData\Projects\DotNet\PowerUI\bin\Debug\PowerUI.exe.config
+C:\MyData\Projects\DotNet\PowerUI\bin\Debug\PowerUI.exe
+C:\MyData\Projects\DotNet\PowerUI\bin\Debug\PowerUI.pdb
+C:\MyData\Projects\DotNet\PowerUI\obj\Debug\PowerUI.csprojAssemblyReference.cache
+C:\MyData\Projects\DotNet\PowerUI\obj\Debug\PowerUI.Properties.Resources.resources
+C:\MyData\Projects\DotNet\PowerUI\obj\Debug\PowerUI.csproj.GenerateResource.cache
+C:\MyData\Projects\DotNet\PowerUI\obj\Debug\PowerUI.csproj.CoreCompileInputs.cache
+C:\MyData\Projects\DotNet\PowerUI\obj\Debug\PowerUI.exe
+C:\MyData\Projects\DotNet\PowerUI\obj\Debug\PowerUI.pdb
+C:\MyData\Projects\DotNet\PowerUI\obj\Debug\PowerUI.frmPowerUI.resources
