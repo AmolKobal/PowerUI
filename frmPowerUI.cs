@@ -17,8 +17,16 @@ namespace PowerUI
     {
         private string powerShellPath = "WindowsPowerShell";
         private string powerShellExe = "powershell.exe";
+
+        private string GetHelp_Command = "Get-Help";
+
         private bool isPowerShellAvailable = false;
         private FileInfo powerShellInfo;
+
+        private bool containsSampleExample = false;
+        private bool containsDetailedExample = false;
+        private bool containsTechnicalDetails = false;
+        private bool containsOnlineHelp = false;
 
         public frmPowerUI()
         {
@@ -34,7 +42,7 @@ namespace PowerUI
                 return;
             }
 
-            lblPowerShellVersion.Text = "PowerShell --> " + powerShellInfo.FullName;
+            lblPowerShellVersion.Text = "PowerShell => " + powerShellInfo.FullName;
 
             lblInfo.Text = "Getting All Commands...";
             lblInfo.Refresh();
@@ -190,31 +198,38 @@ namespace PowerUI
 
             txtCommandHelpDetails.Text = ParseCommandHelp(txtCommandHelpDetails.Text);
             lblInfo.Text = "";
+
+            EnableControls();
         }
 
         private string ParseCommandHelp(string helpText)
         {
+            containsOnlineHelp = false;
+            containsTechnicalDetails = false;
+            containsDetailedExample = false;
+            containsSampleExample = false;
+
             int remarksIndex = helpText.IndexOf("REMARKS");
             if (remarksIndex > 0)
             {
                 if (helpText.IndexOf("-examples", remarksIndex + 1) > 0)
                 {
-                    btnSampleExample.Enabled = true;
+                    containsSampleExample = true;
                 }
 
                 if (helpText.IndexOf("-detailed", remarksIndex + 1) > 0)
                 {
-                    btnDetailedExample.Enabled = true;
+                    containsTechnicalDetails = true;
                 }
 
                 if (helpText.IndexOf("-full", remarksIndex + 1) > 0)
                 {
-                    btnTechnicalInformation.Enabled = true;
+                    containsTechnicalDetails = true;
                 }
 
                 if (helpText.IndexOf("-online", remarksIndex + 1) > 0)
                 {
-                    btnOnlineHelp.Enabled = true;
+                    containsOnlineHelp = true;
                 }
 
                 return helpText.Substring(0, remarksIndex);
@@ -222,12 +237,10 @@ namespace PowerUI
 
             return helpText;
         }
-
+        
         private void GetCommandHelp(string args)
         {
-            string command = "Get-Help";
-
-            RunShellCommand(command, args);
+            RunShellCommand(GetHelp_Command, args);
         }
 
         private void listCommands_SelectedIndexChanged(object sender, EventArgs e)
@@ -254,6 +267,13 @@ namespace PowerUI
 
         private void btnSampleExample_Click(object sender, EventArgs e)
         {
+            DisableControls();
+
+            lblInfo.Text = "Getting " + ((Button)sender).Text + " details";
+            lblInfo.Refresh();
+            txtCommandHelpDetails.Text = "";
+            txtCommandHelpDetails.Refresh();
+
             GetCommandHelp(txtCommand.Text + " -examples >> CommandHelpExample.txt");
             txtCommandHelpDetails.Text = File.ReadAllText("CommandHelpExample.txt");
 
@@ -262,10 +282,37 @@ namespace PowerUI
             {
                 txtCommandHelpDetails.Text = txtCommandHelpDetails.Text.Substring(0, remarksIndex);
             }
+
+            EnableControls();
+        }
+
+        private void DisableControls()
+        {
+            btnGetCommandHelp.Enabled = false;
+            btnSampleExample.Enabled = false;
+            btnDetailedExample.Enabled = false;
+            btnTechnicalInformation.Enabled = false;
+            btnOnlineHelp.Enabled = false;
+        }
+
+        private void EnableControls()
+        {
+            btnGetCommandHelp.Enabled = true;
+            btnSampleExample.Enabled = containsSampleExample;
+            btnDetailedExample.Enabled = containsDetailedExample;
+            btnTechnicalInformation.Enabled = containsTechnicalDetails;
+            btnOnlineHelp.Enabled = containsOnlineHelp;
         }
 
         private void btnDetailedExample_Click(object sender, EventArgs e)
         {
+            DisableControls();
+
+            lblInfo.Text = "Getting " + ((Button)sender).Text + " details";
+            lblInfo.Refresh();
+            txtCommandHelpDetails.Text = "";
+            txtCommandHelpDetails.Refresh();
+
             GetCommandHelp(txtCommand.Text + " -detailed >> CommandHelpDetailed.txt");
             txtCommandHelpDetails.Text = File.ReadAllText("CommandHelpDetailed.txt");
 
@@ -274,10 +321,20 @@ namespace PowerUI
             {
                 txtCommandHelpDetails.Text = txtCommandHelpDetails.Text.Substring(0, remarksIndex);
             }
+
+            EnableControls();
+
         }
 
         private void btnTechnicalInformation_Click(object sender, EventArgs e)
         {
+            DisableControls();
+
+            lblInfo.Text = "Getting " + ((Button)sender).Text + " details";
+            lblInfo.Refresh();
+            txtCommandHelpDetails.Text = "";
+            txtCommandHelpDetails.Refresh();
+
             GetCommandHelp(txtCommand.Text + " -full >> CommandHelpTechnical.txt");
             txtCommandHelpDetails.Text = File.ReadAllText("CommandHelpTechnical.txt");
 
@@ -286,11 +343,20 @@ namespace PowerUI
             {
                 txtCommandHelpDetails.Text = txtCommandHelpDetails.Text.Substring(0, remarksIndex);
             }
+
+            EnableControls();
         }
 
         private void btnOnlineHelp_Click(object sender, EventArgs e)
         {
+            DisableControls();
+
+            lblInfo.Text = "Getting " + ((Button)sender).Text + " details";
+
             GetCommandHelp(txtCommand.Text + " -online");
+
+            EnableControls();
+
         }
     }
 }

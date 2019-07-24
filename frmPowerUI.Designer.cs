@@ -38,7 +38,7 @@
             this.cmbLibrary = new System.Windows.Forms.ComboBox();
             this.txtCommandHelpDetails = new System.Windows.Forms.RichTextBox();
             this.cmbCommandType = new System.Windows.Forms.ComboBox();
-            this.lblPowerShellVersion = new System.Windows.Forms.Label();
+            this.lblSeparator = new System.Windows.Forms.Label();
             this.lblInfo = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtCommand = new System.Windows.Forms.TextBox();
@@ -53,14 +53,17 @@
             this.btnDetailedExample = new System.Windows.Forms.Button();
             this.btnTechnicalInformation = new System.Windows.Forms.Button();
             this.btnOnlineHelp = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lblPowerShellVersion = new System.Windows.Forms.Label();
             this.grpCommand.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnGetCommandHelp
             // 
             this.btnGetCommandHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGetCommandHelp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGetCommandHelp.Location = new System.Drawing.Point(22, 21);
+            this.btnGetCommandHelp.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGetCommandHelp.Location = new System.Drawing.Point(22, 26);
             this.btnGetCommandHelp.Name = "btnGetCommandHelp";
             this.btnGetCommandHelp.Size = new System.Drawing.Size(481, 36);
             this.btnGetCommandHelp.TabIndex = 0;
@@ -71,9 +74,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 33);
+            this.label1.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(23, 42);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 17);
+            this.label1.Size = new System.Drawing.Size(77, 18);
             this.label1.TabIndex = 1;
             this.label1.Text = "Commands";
             // 
@@ -90,7 +94,7 @@
             this.listCommands.FullRowSelect = true;
             this.listCommands.GridLines = true;
             this.listCommands.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listCommands.Location = new System.Drawing.Point(26, 66);
+            this.listCommands.Location = new System.Drawing.Point(19, 75);
             this.listCommands.MultiSelect = false;
             this.listCommands.Name = "listCommands";
             this.listCommands.Size = new System.Drawing.Size(1154, 357);
@@ -122,17 +126,18 @@
             // cmbLibrary
             // 
             this.cmbLibrary.FormattingEnabled = true;
-            this.cmbLibrary.Location = new System.Drawing.Point(502, 30);
+            this.cmbLibrary.Location = new System.Drawing.Point(390, 45);
             this.cmbLibrary.Name = "cmbLibrary";
-            this.cmbLibrary.Size = new System.Drawing.Size(275, 24);
+            this.cmbLibrary.Size = new System.Drawing.Size(339, 24);
             this.cmbLibrary.TabIndex = 3;
             // 
             // txtCommandHelpDetails
             // 
-            this.txtCommandHelpDetails.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtCommandHelpDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCommandHelpDetails.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCommandHelpDetails.Location = new System.Drawing.Point(26, 473);
+            this.txtCommandHelpDetails.Location = new System.Drawing.Point(26, 484);
             this.txtCommandHelpDetails.Name = "txtCommandHelpDetails";
             this.txtCommandHelpDetails.Size = new System.Drawing.Size(1154, 372);
             this.txtCommandHelpDetails.TabIndex = 5;
@@ -141,37 +146,41 @@
             // cmbCommandType
             // 
             this.cmbCommandType.FormattingEnabled = true;
-            this.cmbCommandType.Location = new System.Drawing.Point(842, 30);
+            this.cmbCommandType.Location = new System.Drawing.Point(839, 45);
             this.cmbCommandType.Name = "cmbCommandType";
-            this.cmbCommandType.Size = new System.Drawing.Size(275, 24);
+            this.cmbCommandType.Size = new System.Drawing.Size(339, 24);
             this.cmbCommandType.TabIndex = 3;
             // 
-            // lblPowerShellVersion
+            // lblSeparator
             // 
-            this.lblPowerShellVersion.AutoSize = true;
-            this.lblPowerShellVersion.Location = new System.Drawing.Point(23, 863);
-            this.lblPowerShellVersion.Name = "lblPowerShellVersion";
-            this.lblPowerShellVersion.Size = new System.Drawing.Size(78, 17);
-            this.lblPowerShellVersion.TabIndex = 1;
-            this.lblPowerShellVersion.Text = "PowerShell";
+            this.lblSeparator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSeparator.BackColor = System.Drawing.Color.DarkGray;
+            this.lblSeparator.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblSeparator.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeparator.Location = new System.Drawing.Point(8, 445);
+            this.lblSeparator.Name = "lblSeparator";
+            this.lblSeparator.Size = new System.Drawing.Size(1702, 3);
+            this.lblSeparator.TabIndex = 1;
             // 
             // lblInfo
             // 
             this.lblInfo.AutoSize = true;
-            this.lblInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInfo.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInfo.ForeColor = System.Drawing.Color.Blue;
-            this.lblInfo.Location = new System.Drawing.Point(23, 441);
+            this.lblInfo.Location = new System.Drawing.Point(23, 458);
             this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(13, 18);
+            this.lblInfo.Size = new System.Drawing.Size(33, 18);
             this.lblInfo.TabIndex = 1;
-            this.lblInfo.Text = " ";
+            this.lblInfo.Text = "Info";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(19, 79);
+            this.label2.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(19, 101);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 17);
+            this.label2.Size = new System.Drawing.Size(71, 18);
             this.label2.TabIndex = 6;
             this.label2.Text = "Command";
             // 
@@ -179,7 +188,7 @@
             // 
             this.txtCommand.BackColor = System.Drawing.Color.White;
             this.txtCommand.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCommand.Location = new System.Drawing.Point(19, 102);
+            this.txtCommand.Location = new System.Drawing.Point(19, 124);
             this.txtCommand.Name = "txtCommand";
             this.txtCommand.ReadOnly = true;
             this.txtCommand.Size = new System.Drawing.Size(484, 27);
@@ -188,9 +197,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 150);
+            this.label3.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(19, 172);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 17);
+            this.label3.Size = new System.Drawing.Size(37, 18);
             this.label3.TabIndex = 6;
             this.label3.Text = "Type";
             // 
@@ -198,7 +208,7 @@
             // 
             this.txtCommandType.BackColor = System.Drawing.Color.White;
             this.txtCommandType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCommandType.Location = new System.Drawing.Point(19, 172);
+            this.txtCommandType.Location = new System.Drawing.Point(19, 194);
             this.txtCommandType.Name = "txtCommandType";
             this.txtCommandType.ReadOnly = true;
             this.txtCommandType.Size = new System.Drawing.Size(484, 24);
@@ -207,9 +217,10 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(19, 225);
+            this.label4.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(19, 247);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 17);
+            this.label4.Size = new System.Drawing.Size(55, 18);
             this.label4.TabIndex = 6;
             this.label4.Text = "Version";
             // 
@@ -217,7 +228,7 @@
             // 
             this.txtVersion.BackColor = System.Drawing.Color.White;
             this.txtVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVersion.Location = new System.Drawing.Point(19, 246);
+            this.txtVersion.Location = new System.Drawing.Point(19, 268);
             this.txtVersion.Name = "txtVersion";
             this.txtVersion.ReadOnly = true;
             this.txtVersion.Size = new System.Drawing.Size(239, 24);
@@ -226,9 +237,10 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(19, 293);
+            this.label5.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(19, 315);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 17);
+            this.label5.Size = new System.Drawing.Size(50, 18);
             this.label5.TabIndex = 6;
             this.label5.Text = "Source";
             // 
@@ -236,7 +248,7 @@
             // 
             this.txtSource.BackColor = System.Drawing.Color.White;
             this.txtSource.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSource.Location = new System.Drawing.Point(19, 313);
+            this.txtSource.Location = new System.Drawing.Point(19, 335);
             this.txtSource.Name = "txtSource";
             this.txtSource.ReadOnly = true;
             this.txtSource.Size = new System.Drawing.Size(484, 24);
@@ -254,16 +266,17 @@
             this.grpCommand.Controls.Add(this.label4);
             this.grpCommand.Controls.Add(this.label5);
             this.grpCommand.Controls.Add(this.btnGetCommandHelp);
-            this.grpCommand.Location = new System.Drawing.Point(1186, 66);
+            this.grpCommand.Location = new System.Drawing.Point(1186, 42);
             this.grpCommand.Name = "grpCommand";
-            this.grpCommand.Size = new System.Drawing.Size(520, 357);
+            this.grpCommand.Size = new System.Drawing.Size(520, 390);
             this.grpCommand.TabIndex = 8;
             this.grpCommand.TabStop = false;
             // 
             // btnSampleExample
             // 
             this.btnSampleExample.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSampleExample.Location = new System.Drawing.Point(1208, 492);
+            this.btnSampleExample.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSampleExample.Location = new System.Drawing.Point(1208, 503);
             this.btnSampleExample.Name = "btnSampleExample";
             this.btnSampleExample.Size = new System.Drawing.Size(481, 36);
             this.btnSampleExample.TabIndex = 9;
@@ -274,7 +287,8 @@
             // btnDetailedExample
             // 
             this.btnDetailedExample.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDetailedExample.Location = new System.Drawing.Point(1208, 549);
+            this.btnDetailedExample.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDetailedExample.Location = new System.Drawing.Point(1208, 562);
             this.btnDetailedExample.Name = "btnDetailedExample";
             this.btnDetailedExample.Size = new System.Drawing.Size(481, 36);
             this.btnDetailedExample.TabIndex = 9;
@@ -285,7 +299,8 @@
             // btnTechnicalInformation
             // 
             this.btnTechnicalInformation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTechnicalInformation.Location = new System.Drawing.Point(1208, 615);
+            this.btnTechnicalInformation.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTechnicalInformation.Location = new System.Drawing.Point(1208, 621);
             this.btnTechnicalInformation.Name = "btnTechnicalInformation";
             this.btnTechnicalInformation.Size = new System.Drawing.Size(481, 36);
             this.btnTechnicalInformation.TabIndex = 9;
@@ -296,7 +311,8 @@
             // btnOnlineHelp
             // 
             this.btnOnlineHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOnlineHelp.Location = new System.Drawing.Point(1208, 670);
+            this.btnOnlineHelp.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOnlineHelp.Location = new System.Drawing.Point(1208, 680);
             this.btnOnlineHelp.Name = "btnOnlineHelp";
             this.btnOnlineHelp.Size = new System.Drawing.Size(481, 36);
             this.btnOnlineHelp.TabIndex = 9;
@@ -304,11 +320,41 @@
             this.btnOnlineHelp.UseVisualStyleBackColor = true;
             this.btnOnlineHelp.Click += new System.EventHandler(this.btnOnlineHelp_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(331, 47);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(50, 18);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Source";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(747, 49);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(77, 18);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Commands";
+            // 
+            // lblPowerShellVersion
+            // 
+            this.lblPowerShellVersion.AutoSize = true;
+            this.lblPowerShellVersion.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPowerShellVersion.Location = new System.Drawing.Point(23, 16);
+            this.lblPowerShellVersion.Name = "lblPowerShellVersion";
+            this.lblPowerShellVersion.Size = new System.Drawing.Size(77, 18);
+            this.lblPowerShellVersion.TabIndex = 1;
+            this.lblPowerShellVersion.Text = "Commands";
+            // 
             // frmPowerUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1718, 931);
+            this.ClientSize = new System.Drawing.Size(1718, 861);
             this.Controls.Add(this.btnOnlineHelp);
             this.Controls.Add(this.btnTechnicalInformation);
             this.Controls.Add(this.btnDetailedExample);
@@ -318,8 +364,11 @@
             this.Controls.Add(this.cmbCommandType);
             this.Controls.Add(this.cmbLibrary);
             this.Controls.Add(this.listCommands);
-            this.Controls.Add(this.lblPowerShellVersion);
+            this.Controls.Add(this.lblSeparator);
             this.Controls.Add(this.lblInfo);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.lblPowerShellVersion);
             this.Controls.Add(this.label1);
             this.Name = "frmPowerUI";
             this.Text = "Powershell UI Utility";
@@ -340,7 +389,7 @@
         private System.Windows.Forms.ComboBox cmbLibrary;
         private System.Windows.Forms.RichTextBox txtCommandHelpDetails;
         private System.Windows.Forms.ComboBox cmbCommandType;
-        private System.Windows.Forms.Label lblPowerShellVersion;
+        private System.Windows.Forms.Label lblSeparator;
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
@@ -359,6 +408,9 @@
         private System.Windows.Forms.Button btnDetailedExample;
         private System.Windows.Forms.Button btnTechnicalInformation;
         private System.Windows.Forms.Button btnOnlineHelp;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblPowerShellVersion;
     }
 }
 
