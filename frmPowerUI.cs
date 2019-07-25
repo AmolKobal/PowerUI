@@ -15,13 +15,19 @@ namespace PowerUI
 {
     public partial class frmPowerUI : Form
     {
-        private string powerShellPath = "WindowsPowerShell";
+        private string powerShellFolder = "WindowsPowerShell";
         private string powerShellExe = "powershell.exe";
 
         private string GetHelp_Command = "Get-Help";
 
         private bool isPowerShellAvailable = false;
         private FileInfo powerShellInfo;
+
+        int TimeOutValue = 1000;
+        int elapsedTime = 0;
+        bool isTimeOut;
+        private System.Timers.Timer timeout = new System.Timers.Timer(100);
+        private Color alternateRowColor = Color.FromArgb(245, 245, 245);
 
         private bool hasSampleExample = false;
         private bool hasDetailedExample = false;
@@ -32,6 +38,11 @@ namespace PowerUI
         Point commandHelpLocation, fullViewButtonLocation;
         bool fullViewMode = false;
 
+        string command;
+
+        IList<string> objAllTypes = new List<string>();
+        IList<string> objAllSources = new List<string>();
+
         public frmPowerUI()
         {
             InitializeComponent();
@@ -40,7 +51,7 @@ namespace PowerUI
         private void frmPowerUI_Load(object sender, EventArgs e)
         {
             txtCommand.BorderStyle = txtCommandType.BorderStyle = txtSource.BorderStyle = txtVersion.BorderStyle = BorderStyle.None;
-            
+
             CheckForPowershell();
             if (isPowerShellAvailable == false)
             {
@@ -48,9 +59,12 @@ namespace PowerUI
                 return;
             }
 
+            objAllTypes.Add("(All)");
+            objAllSources.Add("(All)");
+
             lblPowerShellVersion.Text = "PowerShell => " + powerShellInfo.FullName;
             lblPowerShellVersion.Refresh();
-          
+
             Thread.Sleep(100);
             ShowUpdate("Getting All Commands...");
             GetAllPowerShellCommands();
@@ -58,7 +72,6 @@ namespace PowerUI
             ShowUpdate("Loading All Commands...");
             LoadAllCommands();
 
-            grpDetails.Visible = true;
             grpList.Visible = true;
 
             ShowUpdate("All Commands loaded.");
@@ -75,11 +88,13 @@ namespace PowerUI
         {
             string[] lines = File.ReadAllLines("AllCommands.txt");
             ParseCommands(lines);
+
+            cmbType.DataSource = objAllTypes;
+            cmbSource.DataSource = objAllSources;
         }
 
         private void ParseCommands(string[] input)
         {
-            int percentage = 0;
             int totalCommands = input.Length;
 
             string[] command;
@@ -101,9 +116,9 @@ namespace PowerUI
                     {
                         ListViewItem item = new ListViewItem(command[0]);
                         if (itemNo++ % 2 == 0)
-                            item.ForeColor = Color.DimGray;
+                            item.BackColor = alternateRowColor;
                         else
-                            item.ForeColor = Color.Black;
+                            item.BackColor = Color.White;
 
                         listCommands.Items.Add(item);
 
@@ -121,31 +136,46 @@ namespace PowerUI
                                 item.SubItems.Add(command[0]);
                                 item.SubItems.Add("");
                                 item.SubItems.Add("");
+
+                                if (!objAllTypes.Contains(command[0]))
+                                {
+                                    objAllTypes.Add(command[0]);
+                                }
+
                                 break;
                             case 3:
                                 item.Text = command[1];
                                 item.SubItems.Add(command[0]);
                                 item.SubItems.Add(command[2]);
                                 item.SubItems.Add("");
+
+                                if (!objAllTypes.Contains(command[0]))
+                                {
+                                    objAllTypes.Add(command[0]);
+                                }
+
                                 break;
                             case 4:
                                 item.Text = command[1];
                                 item.SubItems.Add(command[0]);
                                 item.SubItems.Add(command[3]);
                                 item.SubItems.Add(command[2]);
+
+                                if (!objAllTypes.Contains(command[0]))
+                                {
+                                    objAllTypes.Add(command[0]);
+                                }
+                                if (!objAllSources.Contains(command[3]))
+                                {
+                                    objAllSources.Add(command[3]);
+                                }
+
                                 break;
                             default:
                                 break;
                         }
 
-                        ////for (int index = 1; index < command.Length; index++)
-                        ////{
-                        ////    item.SubItems.Add(command[index]);
-                        ////}
-                        //listCommands.TopItem = item;
-                        //listCommands.EnsureVisible(listCommands.Items.Count - 1);
-                        listCommands.EnsureVisible(0);
-                        //listCommands.Refresh();
+                        //listCommands.EnsureVisible(0);
                     }
                     else
                     {
@@ -157,29 +187,29 @@ namespace PowerUI
                 }
             }
 
-            listCommands.EnsureVisible(0);
+            //listCommands.EnsureVisible(0);
             listCommands.Enabled = true;
         }
 
         private void CheckForPowershell()
         {
-            string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.System);
+            string systemFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.System);
 
-            string powerShellFolder = Path.Combine(systemPath, powerShellPath);
-            if (Directory.Exists(powerShellFolder))
+            string powerShellFolderPath = Path.Combine(systemFolderPath, powerShellFolder);
+            if (Directory.Exists(powerShellFolderPath))
             {
-                string powerShellExePath = Path.Combine(powerShellFolder, powerShellExe);
+                string powerShellExePath = Path.Combine(powerShellFolderPath, powerShellExe);
                 if (File.Exists(powerShellExePath))
                 {
                     isPowerShellAvailable = true;
                 }
                 else
                 {
-                    string[] directories = Directory.GetDirectories(powerShellFolder);
+                    string[] directories = Directory.GetDirectories(powerShellFolderPath);
                     foreach (string directory in directories)
                     {
-                        powerShellFolder = directory;
-                        powerShellExePath = Path.Combine(powerShellFolder, powerShellExe);
+                        powerShellFolderPath = directory;
+                        powerShellExePath = Path.Combine(powerShellFolderPath, powerShellExe);
 
                         if (File.Exists(powerShellExePath))
                         {
@@ -220,9 +250,26 @@ namespace PowerUI
             process.StartInfo = info;
             process.Exited += Process_Exited;
 
+            elapsedTime = 0;
+            timeout.Elapsed += Timeout_Elapsed;
+            timeout.Enabled = false;
+            timeout.Start();
+             
             process.Start();
 
-            while (process.HasExited != true) ;
+            while (!process.HasExited && !isTimeOut) ;
+        }
+
+        private void Timeout_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            elapsedTime++;
+
+            if(elapsedTime > TimeOutValue)
+            {
+                timeout.Enabled = false;
+                timeout.Stop();
+                isTimeOut = true;
+            }
         }
 
         private void Process_Exited(object sender, EventArgs e)
@@ -240,19 +287,28 @@ namespace PowerUI
             if (txtCommand.Text == "")
                 ShowUpdate("Getting PowerShell help details");
             else
-                ShowUpdate("Getting details for $ " + txtCommand.Text);
+                ShowUpdate($"Getting details for [ {txtCommand.Text} ]");
 
-            File.WriteAllText("CommandHelp.txt", "");
+            command = txtCommand.Text;
+
+            //File.WriteAllText("CommandHelp.txt", "");
             txtCommandHelpDetails.Text = "";
-            GetCommandHelp(txtCommand.Text + " >> CommandHelp.txt");
-            txtCommandHelpDetails.Text = File.ReadAllText("CommandHelp.txt");
+
+            if (!File.Exists($"{command}-help.txt"))
+            {
+                GetCommandHelp($"{txtCommand.Text} >> {command}-help.txt");
+            }
+
+            txtCommandHelpDetails.Text = File.ReadAllText($"{command}-help.txt");
 
             txtCommandHelpDetails.Text = ParseCommandHelp(txtCommandHelpDetails.Text);
             ShowUpdate("");
 
             EnableControls();
 
-            grpDetails.Text = " " + txtCommand.Text + " ( " + txtCommandType.Text + " ) >";
+            grpDetails.Text = $" {command} ( {txtCommandType.Text} ) >";
+            btnFullView.Visible = txtCommandHelpDetails.Text.Length > 0;
+            grpDetails.Visible = txtCommandHelpDetails.Text.Length > 0;
         }
 
         private string ParseCommandHelp(string helpText)
@@ -307,29 +363,25 @@ namespace PowerUI
 
             txtCommand.Text = item.SubItems[0].Text;
             txtCommandType.Text = item.SubItems[1].Text;
-
-            //if (item.SubItems.Count > 1)
-            //{
             txtSource.Text = item.SubItems[2].Text;
-            //}
-            //if (item.SubItems.Count > 2)
-            //{
             txtVersion.Text = item.SubItems[3].Text;
-            //}
-
         }
 
         private void btnSampleExample_Click(object sender, EventArgs e)
         {
-            DisableControls();
+            ShowUpdate($"Getting {((Button)sender).Text} details [ {command} ]");
+            GetAdditionalHelpDetails(command, "example");
+        }
 
-            ShowUpdate("Getting " + ((Button)sender).Text + " details");
+        private void GetAdditionalHelpDetails(string command, string helpType)
+        {
+            DisableControls();
 
             txtCommandHelpDetails.Text = "";
             txtCommandHelpDetails.Refresh();
 
-            GetCommandHelp(txtCommand.Text + " -examples >> CommandHelpExample.txt");
-            txtCommandHelpDetails.Text = File.ReadAllText("CommandHelpExample.txt");
+            GetCommandHelp($"{txtCommand.Text} -{helpType} >> {command}-{helpType}.txt");
+            txtCommandHelpDetails.Text = File.ReadAllText($"{command}-{helpType}.txt");
 
             int remarksIndex = txtCommandHelpDetails.Text.IndexOf("REMARKS");
             if (remarksIndex > 0)
@@ -360,45 +412,14 @@ namespace PowerUI
 
         private void btnDetailedExample_Click(object sender, EventArgs e)
         {
-            DisableControls();
-
-            ShowUpdate("Getting " + ((Button)sender).Text + " details");
-
-            txtCommandHelpDetails.Text = "";
-            txtCommandHelpDetails.Refresh();
-
-            GetCommandHelp(txtCommand.Text + " -detailed >> CommandHelpDetailed.txt");
-            txtCommandHelpDetails.Text = File.ReadAllText("CommandHelpDetailed.txt");
-
-            int remarksIndex = txtCommandHelpDetails.Text.IndexOf("REMARKS");
-            if (remarksIndex > 0)
-            {
-                txtCommandHelpDetails.Text = txtCommandHelpDetails.Text.Substring(0, remarksIndex);
-            }
-
-            EnableControls();
-
+            ShowUpdate($"Getting {((Button)sender).Text} details ${command}");
+            GetAdditionalHelpDetails(command, "detailed");
         }
 
         private void btnTechnicalInformation_Click(object sender, EventArgs e)
         {
-            DisableControls();
-
-            ShowUpdate("Getting " + ((Button)sender).Text + " details");
-
-            txtCommandHelpDetails.Text = "";
-            txtCommandHelpDetails.Refresh();
-
-            GetCommandHelp(txtCommand.Text + " -full >> CommandHelpTechnical.txt");
-            txtCommandHelpDetails.Text = File.ReadAllText("CommandHelpTechnical.txt");
-
-            int remarksIndex = txtCommandHelpDetails.Text.IndexOf("REMARKS");
-            if (remarksIndex > 0)
-            {
-                txtCommandHelpDetails.Text = txtCommandHelpDetails.Text.Substring(0, remarksIndex);
-            }
-
-            EnableControls();
+            ShowUpdate($"Getting {((Button)sender).Text} details ${command}");
+            GetAdditionalHelpDetails(command, "full");
         }
 
         private void btnOnlineHelp_Click(object sender, EventArgs e)
@@ -410,7 +431,6 @@ namespace PowerUI
             GetCommandHelp(txtCommand.Text + " -online");
 
             EnableControls();
-
         }
 
         private void FrmPowerUI_FormClosing(object sender, FormClosingEventArgs e)
@@ -453,6 +473,21 @@ namespace PowerUI
                     }
                     break;
             }
+        }
+
+        private void BtnTheme_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CmbType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CmbSource_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void SetFullView()
