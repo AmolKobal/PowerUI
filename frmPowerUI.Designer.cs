@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblAllCommands = new System.Windows.Forms.Label();
             this.listCommands = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -62,16 +62,16 @@
             this.grpList.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // lblAllCommands
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Calibri", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Magenta;
-            this.label1.Location = new System.Drawing.Point(10, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 18);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "All Commands";
+            this.lblAllCommands.AutoSize = true;
+            this.lblAllCommands.Font = new System.Drawing.Font("Calibri", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAllCommands.ForeColor = System.Drawing.Color.Magenta;
+            this.lblAllCommands.Location = new System.Drawing.Point(10, 18);
+            this.lblAllCommands.Name = "lblAllCommands";
+            this.lblAllCommands.Size = new System.Drawing.Size(97, 18);
+            this.lblAllCommands.TabIndex = 1;
+            this.lblAllCommands.Text = "All Commands";
             // 
             // listCommands
             // 
@@ -114,8 +114,7 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "Version";
-            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader3.Width = 100;
+            this.columnHeader3.Width = 80;
             // 
             // cmbType
             // 
@@ -142,7 +141,7 @@
             this.txtCommandHelpDetails.Location = new System.Drawing.Point(11, 21);
             this.txtCommandHelpDetails.Name = "txtCommandHelpDetails";
             this.txtCommandHelpDetails.ReadOnly = true;
-            this.txtCommandHelpDetails.Size = new System.Drawing.Size(1415, 398);
+            this.txtCommandHelpDetails.Size = new System.Drawing.Size(1415, 402);
             this.txtCommandHelpDetails.TabIndex = 5;
             this.txtCommandHelpDetails.Text = "";
             // 
@@ -179,7 +178,7 @@
             this.btnSampleExample.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnSampleExample.FlatAppearance.BorderSize = 2;
             this.btnSampleExample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSampleExample.Font = new System.Drawing.Font("Calibri", 9.3F, System.Drawing.FontStyle.Bold);
+            this.btnSampleExample.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSampleExample.ForeColor = System.Drawing.Color.RoyalBlue;
             this.btnSampleExample.Location = new System.Drawing.Point(1445, 25);
             this.btnSampleExample.Name = "btnSampleExample";
@@ -197,7 +196,7 @@
             this.btnDetailedExample.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnDetailedExample.FlatAppearance.BorderSize = 2;
             this.btnDetailedExample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDetailedExample.Font = new System.Drawing.Font("Calibri", 9.3F, System.Drawing.FontStyle.Bold);
+            this.btnDetailedExample.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDetailedExample.ForeColor = System.Drawing.Color.RoyalBlue;
             this.btnDetailedExample.Location = new System.Drawing.Point(1445, 84);
             this.btnDetailedExample.Name = "btnDetailedExample";
@@ -215,7 +214,7 @@
             this.btnTechnicalInformation.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnTechnicalInformation.FlatAppearance.BorderSize = 2;
             this.btnTechnicalInformation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTechnicalInformation.Font = new System.Drawing.Font("Calibri", 9.3F, System.Drawing.FontStyle.Bold);
+            this.btnTechnicalInformation.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTechnicalInformation.ForeColor = System.Drawing.Color.RoyalBlue;
             this.btnTechnicalInformation.Location = new System.Drawing.Point(1445, 143);
             this.btnTechnicalInformation.Name = "btnTechnicalInformation";
@@ -233,7 +232,7 @@
             this.btnOnlineHelp.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnOnlineHelp.FlatAppearance.BorderSize = 2;
             this.btnOnlineHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOnlineHelp.Font = new System.Drawing.Font("Calibri", 9.3F, System.Drawing.FontStyle.Bold);
+            this.btnOnlineHelp.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOnlineHelp.ForeColor = System.Drawing.Color.RoyalBlue;
             this.btnOnlineHelp.Location = new System.Drawing.Point(1445, 202);
             this.btnOnlineHelp.Name = "btnOnlineHelp";
@@ -249,7 +248,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Magenta;
-            this.label6.Location = new System.Drawing.Point(531, 15);
+            this.label6.Location = new System.Drawing.Point(531, 17);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(38, 18);
             this.label6.TabIndex = 1;
@@ -306,9 +305,9 @@
             this.btnFullView.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnFullView.FlatAppearance.BorderSize = 2;
             this.btnFullView.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFullView.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFullView.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFullView.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.btnFullView.Location = new System.Drawing.Point(1445, 383);
+            this.btnFullView.Location = new System.Drawing.Point(1445, 387);
             this.btnFullView.Name = "btnFullView";
             this.btnFullView.Size = new System.Drawing.Size(207, 36);
             this.btnFullView.TabIndex = 9;
@@ -330,7 +329,7 @@
             this.grpList.Controls.Add(this.label4);
             this.grpList.Controls.Add(this.label5);
             this.grpList.Controls.Add(this.btnGetCommandHelp);
-            this.grpList.Controls.Add(this.label1);
+            this.grpList.Controls.Add(this.lblAllCommands);
             this.grpList.Controls.Add(this.label6);
             this.grpList.Controls.Add(this.label7);
             this.grpList.Controls.Add(this.cmbSource);
@@ -450,7 +449,7 @@
             this.btnGetCommandHelp.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnGetCommandHelp.FlatAppearance.BorderSize = 2;
             this.btnGetCommandHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGetCommandHelp.Font = new System.Drawing.Font("Calibri", 9.3F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGetCommandHelp.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGetCommandHelp.ForeColor = System.Drawing.Color.RoyalBlue;
             this.btnGetCommandHelp.Location = new System.Drawing.Point(1210, 60);
             this.btnGetCommandHelp.Name = "btnGetCommandHelp";
@@ -466,11 +465,11 @@
             this.btnTheme.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnTheme.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnTheme.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTheme.Font = new System.Drawing.Font("Calibri", 9.3F, System.Drawing.FontStyle.Bold);
+            this.btnTheme.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTheme.ForeColor = System.Drawing.Color.Cyan;
-            this.btnTheme.Location = new System.Drawing.Point(1453, 8);
+            this.btnTheme.Location = new System.Drawing.Point(1445, 8);
             this.btnTheme.Name = "btnTheme";
-            this.btnTheme.Size = new System.Drawing.Size(207, 30);
+            this.btnTheme.Size = new System.Drawing.Size(207, 29);
             this.btnTheme.TabIndex = 12;
             this.btnTheme.Text = "Theme (Normal)";
             this.btnTheme.UseVisualStyleBackColor = false;
@@ -503,7 +502,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblAllCommands;
         private System.Windows.Forms.ListView listCommands;
         private System.Windows.Forms.ComboBox cmbType;
         private System.Windows.Forms.RichTextBox txtCommandHelpDetails;

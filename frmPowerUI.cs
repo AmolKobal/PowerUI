@@ -27,7 +27,7 @@ namespace PowerUI
         int elapsedTime = 0;
         bool isTimeOut;
         private System.Timers.Timer timeout = new System.Timers.Timer(100);
-        private Color alternateRowColor = Color.FromArgb(245, 245, 245);
+        private Color alternateRowColor = Color.FromArgb(248, 248, 248);
 
         private bool hasSampleExample = false;
         private bool hasDetailedExample = false;
@@ -42,6 +42,8 @@ namespace PowerUI
 
         IList<string> objAllTypes = new List<string>();
         IList<string> objAllSources = new List<string>();
+
+        IList<Command> allCommands = new List<Command>();
 
         public frmPowerUI()
         {
@@ -70,7 +72,13 @@ namespace PowerUI
             GetAllPowerShellCommands();
 
             ShowUpdate("Loading All Commands...");
-            LoadAllCommands();
+
+            string[] lines = File.ReadAllLines("AllCommands.txt");
+            ParseCommands(lines);
+            cmbType.DataSource = objAllTypes;
+            cmbSource.DataSource = objAllSources;
+
+            LoadCommands("(All)", "(All)");
 
             grpList.Visible = true;
 
@@ -84,13 +92,54 @@ namespace PowerUI
             lblInfo.Refresh();
         }
 
-        private void LoadAllCommands()
+        private void LoadCommands(string type, string source)
         {
-            string[] lines = File.ReadAllLines("AllCommands.txt");
-            ParseCommands(lines);
+            int itemNo = 0;
 
-            cmbType.DataSource = objAllTypes;
-            cmbSource.DataSource = objAllSources;
+            IEnumerable<Command> commands = null;
+
+            ShowUpdate($"Loading Commands Type: {type}, Source {source}");
+
+            listCommands.Items.Clear();
+            listCommands.Enabled = false;
+
+            if ("(All)" == type && "(All)" == source)
+            {
+                commands = allCommands;
+            }
+            else if ("(All)" == type && "(All)" != source)
+            {
+                commands = from cmd in allCommands where cmd.Source == source select cmd;
+            }
+            else if ("(All)" != type && "(All)" == source)
+            {
+                commands = from cmd in allCommands where cmd.Type == type select cmd;
+            }
+            else if ("(All)" != type && "(All)" != source)
+            {
+                commands = from cmd in allCommands where cmd.Type == type && cmd.Source == source select cmd;
+            }
+
+            foreach (Command cmd in commands)
+            {
+                ListViewItem item = new ListViewItem();
+                if (itemNo++ % 2 == 0)
+                    item.BackColor = alternateRowColor;
+                else
+                    item.BackColor = Color.White;
+
+                item.Text = cmd.Name;
+                item.SubItems.Add(cmd.Type);
+                item.SubItems.Add(cmd.Source);
+                item.SubItems.Add(cmd.Version);
+
+                listCommands.Items.Add(item);
+            }
+
+            listCommands.Enabled = true;
+            lblAllCommands.Text = $"Total Commands ( { commands.Count() } )";
+
+            ShowUpdate("");
         }
 
         private void ParseCommands(string[] input)
@@ -98,13 +147,12 @@ namespace PowerUI
             int totalCommands = input.Length;
 
             string[] command;
-            string[] separator = new string[1];
-            separator[0] = " ";
+            string[] separator = new string[1] { " " };
+            //separator[0] = " ";
             bool commandStarted = false;
 
             listCommands.BackColor = Color.White;
             listCommands.Enabled = false;
-            int itemNo = 0;
 
             foreach (string line in input)
             {
@@ -114,28 +162,17 @@ namespace PowerUI
                 {
                     if (commandStarted)
                     {
-                        ListViewItem item = new ListViewItem(command[0]);
-                        if (itemNo++ % 2 == 0)
-                            item.BackColor = alternateRowColor;
-                        else
-                            item.BackColor = Color.White;
-
-                        listCommands.Items.Add(item);
+                        Command cmd = new Command();
 
                         switch (command.Length)
                         {
-
                             case 1:
-                                item.Text = command[0];
-                                item.SubItems.Add("");
-                                item.SubItems.Add("");
-                                item.SubItems.Add("");
+                                cmd.Name = command[0];
                                 break;
+
                             case 2:
-                                item.Text = command[1];
-                                item.SubItems.Add(command[0]);
-                                item.SubItems.Add("");
-                                item.SubItems.Add("");
+                                cmd.Name = command[1];
+                                cmd.Type = command[0];
 
                                 if (!objAllTypes.Contains(command[0]))
                                 {
@@ -144,10 +181,9 @@ namespace PowerUI
 
                                 break;
                             case 3:
-                                item.Text = command[1];
-                                item.SubItems.Add(command[0]);
-                                item.SubItems.Add(command[2]);
-                                item.SubItems.Add("");
+                                cmd.Name = command[1];
+                                cmd.Type = command[0];
+                                cmd.Source = command[2];
 
                                 if (!objAllTypes.Contains(command[0]))
                                 {
@@ -156,10 +192,10 @@ namespace PowerUI
 
                                 break;
                             case 4:
-                                item.Text = command[1];
-                                item.SubItems.Add(command[0]);
-                                item.SubItems.Add(command[3]);
-                                item.SubItems.Add(command[2]);
+                                cmd.Name = command[1];
+                                cmd.Type = command[0];
+                                cmd.Source = command[3];
+                                cmd.Version = command[2];
 
                                 if (!objAllTypes.Contains(command[0]))
                                 {
@@ -175,7 +211,7 @@ namespace PowerUI
                                 break;
                         }
 
-                        //listCommands.EnsureVisible(0);
+                        allCommands.Add(cmd);
                     }
                     else
                     {
@@ -186,9 +222,6 @@ namespace PowerUI
                     }
                 }
             }
-
-            //listCommands.EnsureVisible(0);
-            listCommands.Enabled = true;
         }
 
         private void CheckForPowershell()
@@ -254,7 +287,7 @@ namespace PowerUI
             timeout.Elapsed += Timeout_Elapsed;
             timeout.Enabled = false;
             timeout.Start();
-             
+
             process.Start();
 
             while (!process.HasExited && !isTimeOut) ;
@@ -264,7 +297,7 @@ namespace PowerUI
         {
             elapsedTime++;
 
-            if(elapsedTime > TimeOutValue)
+            if (elapsedTime > TimeOutValue)
             {
                 timeout.Enabled = false;
                 timeout.Stop();
@@ -482,12 +515,12 @@ namespace PowerUI
 
         private void CmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            LoadCommands(cmbType.Text, cmbSource.Text);
         }
 
         private void CmbSource_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            LoadCommands(cmbType.Text, cmbSource.Text);
         }
 
         private void SetFullView()
