@@ -60,8 +60,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnGetCommandHelp = new System.Windows.Forms.Button();
             this.btnTheme = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.grpDetails.SuspendLayout();
             this.grpList.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblAllCommands
@@ -126,9 +128,9 @@
             this.cmbType.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbType.ForeColor = System.Drawing.Color.Magenta;
             this.cmbType.FormattingEnabled = true;
-            this.cmbType.Location = new System.Drawing.Point(1330, 77);
+            this.cmbType.Location = new System.Drawing.Point(124, 56);
             this.cmbType.Name = "cmbType";
-            this.cmbType.Size = new System.Drawing.Size(330, 29);
+            this.cmbType.Size = new System.Drawing.Size(322, 29);
             this.cmbType.TabIndex = 3;
             this.cmbType.SelectedIndexChanged += new System.EventHandler(this.CmbType_SelectedIndexChanged);
             // 
@@ -155,20 +157,20 @@
             this.cmbSource.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbSource.ForeColor = System.Drawing.Color.Magenta;
             this.cmbSource.FormattingEnabled = true;
-            this.cmbSource.Location = new System.Drawing.Point(1330, 113);
+            this.cmbSource.Location = new System.Drawing.Point(124, 21);
             this.cmbSource.Name = "cmbSource";
-            this.cmbSource.Size = new System.Drawing.Size(330, 29);
+            this.cmbSource.Size = new System.Drawing.Size(322, 29);
             this.cmbSource.TabIndex = 3;
             this.cmbSource.SelectedIndexChanged += new System.EventHandler(this.CmbSource_SelectedIndexChanged);
             // 
             // lblInfo
             // 
             this.lblInfo.AutoSize = true;
-            this.lblInfo.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInfo.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInfo.ForeColor = System.Drawing.Color.Lime;
-            this.lblInfo.Location = new System.Drawing.Point(675, 459);
+            this.lblInfo.Location = new System.Drawing.Point(675, 457);
             this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(33, 18);
+            this.lblInfo.Size = new System.Drawing.Size(38, 21);
             this.lblInfo.TabIndex = 1;
             this.lblInfo.Text = "Info";
             // 
@@ -250,7 +252,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Magenta;
-            this.label6.Location = new System.Drawing.Point(1213, 82);
+            this.label6.Location = new System.Drawing.Point(77, 60);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(38, 18);
             this.label6.TabIndex = 1;
@@ -262,7 +264,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Magenta;
-            this.label7.Location = new System.Drawing.Point(1213, 118);
+            this.label7.Location = new System.Drawing.Point(65, 26);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(50, 18);
             this.label7.TabIndex = 1;
@@ -322,6 +324,7 @@
             // 
             this.grpList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpList.Controls.Add(this.groupBox1);
             this.grpList.Controls.Add(this.txtSearchContent);
             this.grpList.Controls.Add(this.label1);
             this.grpList.Controls.Add(this.txtCommand);
@@ -334,11 +337,7 @@
             this.grpList.Controls.Add(this.label5);
             this.grpList.Controls.Add(this.btnGetCommandHelp);
             this.grpList.Controls.Add(this.lblAllCommands);
-            this.grpList.Controls.Add(this.label6);
-            this.grpList.Controls.Add(this.label7);
-            this.grpList.Controls.Add(this.cmbSource);
             this.grpList.Controls.Add(this.listCommands);
-            this.grpList.Controls.Add(this.cmbType);
             this.grpList.Location = new System.Drawing.Point(9, 38);
             this.grpList.Name = "grpList";
             this.grpList.Size = new System.Drawing.Size(1673, 417);
@@ -354,7 +353,7 @@
             this.txtSearchContent.ForeColor = System.Drawing.Color.White;
             this.txtSearchContent.Location = new System.Drawing.Point(1330, 43);
             this.txtSearchContent.Name = "txtSearchContent";
-            this.txtSearchContent.Size = new System.Drawing.Size(330, 27);
+            this.txtSearchContent.Size = new System.Drawing.Size(322, 27);
             this.txtSearchContent.TabIndex = 18;
             this.txtSearchContent.TextChanged += new System.EventHandler(this.TxtSearchContent_TextChanged);
             // 
@@ -364,11 +363,11 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Magenta;
-            this.label1.Location = new System.Drawing.Point(1213, 47);
+            this.label1.Location = new System.Drawing.Point(1206, 47);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(115, 18);
+            this.label1.Size = new System.Drawing.Size(121, 18);
             this.label1.TabIndex = 17;
-            this.label1.Text = "Search Command";
+            this.label1.Text = "Search Commands";
             // 
             // txtCommand
             // 
@@ -503,6 +502,22 @@
             this.btnTheme.UseVisualStyleBackColor = false;
             this.btnTheme.Click += new System.EventHandler(this.BtnTheme_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.cmbSource);
+            this.groupBox1.Controls.Add(this.cmbType);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.ForeColor = System.Drawing.Color.Lime;
+            this.groupBox1.Location = new System.Drawing.Point(1206, 76);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(454, 103);
+            this.groupBox1.TabIndex = 19;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Filter";
+            // 
             // frmPowerUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -524,6 +539,8 @@
             this.grpDetails.ResumeLayout(false);
             this.grpList.ResumeLayout(false);
             this.grpList.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -562,6 +579,7 @@
         private System.Windows.Forms.Button btnTheme;
         private System.Windows.Forms.TextBox txtSearchContent;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

@@ -120,11 +120,6 @@ namespace PowerUI
             ShowUpdate("");
         }
 
-        private void BtnSearch_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void TxtSearchContent_TextChanged(object sender, EventArgs e)
         {
             IEnumerable<Command> commands = null;
@@ -160,7 +155,7 @@ namespace PowerUI
             }
 
             listCommands.Enabled = true;
-            lblAllCommands.Text = $"({ commands.Count() } Commands)";             
+            lblAllCommands.Text = $"({ commands.Count() } Commands)";
         }
 
         private void ParseCommands(string[] input)
@@ -421,13 +416,7 @@ namespace PowerUI
             txtVersion.Text = item.SubItems[3].Text;
         }
 
-        private void btnSampleExample_Click(object sender, EventArgs e)
-        {
-            ShowUpdate($"Getting {((Button)sender).Text} details [ {command} ]");
-            GetAdditionalHelpDetails(command, "example");
-        }
-
-        private void GetAdditionalHelpDetails(string command, string helpType)
+         private void GetAdditionalHelpDetails(string command, string helpType)
         {
             DisableControls();
 
@@ -464,6 +453,12 @@ namespace PowerUI
             btnOnlineHelp.Enabled = hasOnlineHelp;
         }
 
+        private void btnSampleExample_Click(object sender, EventArgs e)
+        {
+            ShowUpdate($"Getting {((Button)sender).Text} details [ {command} ]");
+            GetAdditionalHelpDetails(command, "example");
+        }
+
         private void btnDetailedExample_Click(object sender, EventArgs e)
         {
             ShowUpdate($"Getting {((Button)sender).Text} details ${command}");
@@ -490,10 +485,15 @@ namespace PowerUI
         private void FrmPowerUI_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Cleanup
-            foreach (string f in Directory.GetFiles(".", "*.txt"))
+            //foreach (string f in Directory.GetFiles(".", "*.txt"))
+            //{
+            //    File.Delete(f);
+            //}
+            try
             {
-                File.Delete(f);
+                File.Delete("AllCommands.txt");
             }
+            catch { }
         }
 
         private void btnFullView_Click(object sender, EventArgs e)
@@ -543,7 +543,7 @@ namespace PowerUI
         {
             LoadCommands(cmbType.Text, cmbSource.Text);
         }
-              
+
         private void SetFullView()
         {
             commandHelpSize = txtCommandHelpDetails.Size;
