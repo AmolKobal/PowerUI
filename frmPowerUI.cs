@@ -94,14 +94,9 @@ namespace PowerUI
 
         private void LoadCommands(string type, string source)
         {
-            int itemNo = 0;
-
             IEnumerable<Command> commands = null;
 
             ShowUpdate($"Loading Commands Type: {type}, Source {source}");
-
-            listCommands.Items.Clear();
-            listCommands.Enabled = false;
 
             if ("(All)" == type && "(All)" == source)
             {
@@ -120,13 +115,41 @@ namespace PowerUI
                 commands = from cmd in allCommands where cmd.Type == type && cmd.Source == source select cmd;
             }
 
+            UpdateList(commands);
+
+            ShowUpdate("");
+        }
+
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void TxtSearchContent_TextChanged(object sender, EventArgs e)
+        {
+            IEnumerable<Command> commands = null;
+
+            ShowUpdate("Searching...");
+
+            commands = from cmd in allCommands where cmd.Name.StartsWith(txtSearchContent.Text, true, Thread.CurrentThread.CurrentUICulture) select cmd;
+
+            UpdateList(commands);
+
+            ShowUpdate("");
+        }
+
+        private void UpdateList(IEnumerable<Command> commands)
+        {
+            listCommands.Items.Clear();
+            listCommands.Enabled = false;
+
             foreach (Command cmd in commands)
             {
                 ListViewItem item = new ListViewItem();
-                if (itemNo++ % 2 == 0)
-                    item.BackColor = alternateRowColor;
-                else
-                    item.BackColor = Color.White;
+                //if (itemNo++ % 2 == 0)
+                //    item.BackColor = alternateRowColor;
+                //else
+                //    item.BackColor = Color.White;
 
                 item.Text = cmd.Name;
                 item.SubItems.Add(cmd.Type);
@@ -137,9 +160,7 @@ namespace PowerUI
             }
 
             listCommands.Enabled = true;
-            lblAllCommands.Text = $"Total Commands ( { commands.Count() } )";
-
-            ShowUpdate("");
+            lblAllCommands.Text = $"({ commands.Count() } Commands)";             
         }
 
         private void ParseCommands(string[] input)
@@ -522,7 +543,7 @@ namespace PowerUI
         {
             LoadCommands(cmbType.Text, cmbSource.Text);
         }
-
+              
         private void SetFullView()
         {
             commandHelpSize = txtCommandHelpDetails.Size;

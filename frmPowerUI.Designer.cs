@@ -48,6 +48,8 @@
             this.grpDetails = new System.Windows.Forms.GroupBox();
             this.btnFullView = new System.Windows.Forms.Button();
             this.grpList = new System.Windows.Forms.GroupBox();
+            this.txtSearchContent = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtCommand = new System.Windows.Forms.TextBox();
             this.txtVersion = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -124,9 +126,9 @@
             this.cmbType.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbType.ForeColor = System.Drawing.Color.Magenta;
             this.cmbType.FormattingEnabled = true;
-            this.cmbType.Location = new System.Drawing.Point(578, 13);
+            this.cmbType.Location = new System.Drawing.Point(1330, 77);
             this.cmbType.Name = "cmbType";
-            this.cmbType.Size = new System.Drawing.Size(264, 29);
+            this.cmbType.Size = new System.Drawing.Size(330, 29);
             this.cmbType.TabIndex = 3;
             this.cmbType.SelectedIndexChanged += new System.EventHandler(this.CmbType_SelectedIndexChanged);
             // 
@@ -153,9 +155,9 @@
             this.cmbSource.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbSource.ForeColor = System.Drawing.Color.Magenta;
             this.cmbSource.FormattingEnabled = true;
-            this.cmbSource.Location = new System.Drawing.Point(938, 13);
+            this.cmbSource.Location = new System.Drawing.Point(1330, 113);
             this.cmbSource.Name = "cmbSource";
-            this.cmbSource.Size = new System.Drawing.Size(264, 29);
+            this.cmbSource.Size = new System.Drawing.Size(330, 29);
             this.cmbSource.TabIndex = 3;
             this.cmbSource.SelectedIndexChanged += new System.EventHandler(this.CmbSource_SelectedIndexChanged);
             // 
@@ -248,7 +250,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Magenta;
-            this.label6.Location = new System.Drawing.Point(531, 17);
+            this.label6.Location = new System.Drawing.Point(1213, 82);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(38, 18);
             this.label6.TabIndex = 1;
@@ -260,7 +262,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Magenta;
-            this.label7.Location = new System.Drawing.Point(879, 17);
+            this.label7.Location = new System.Drawing.Point(1213, 118);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(50, 18);
             this.label7.TabIndex = 1;
@@ -320,6 +322,8 @@
             // 
             this.grpList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpList.Controls.Add(this.txtSearchContent);
+            this.grpList.Controls.Add(this.label1);
             this.grpList.Controls.Add(this.txtCommand);
             this.grpList.Controls.Add(this.txtVersion);
             this.grpList.Controls.Add(this.label2);
@@ -342,6 +346,30 @@
             this.grpList.TabStop = false;
             this.grpList.Visible = false;
             // 
+            // txtSearchContent
+            // 
+            this.txtSearchContent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSearchContent.BackColor = System.Drawing.Color.Black;
+            this.txtSearchContent.Font = new System.Drawing.Font("Consolas", 10.2F);
+            this.txtSearchContent.ForeColor = System.Drawing.Color.White;
+            this.txtSearchContent.Location = new System.Drawing.Point(1330, 43);
+            this.txtSearchContent.Name = "txtSearchContent";
+            this.txtSearchContent.Size = new System.Drawing.Size(330, 27);
+            this.txtSearchContent.TabIndex = 18;
+            this.txtSearchContent.TextChanged += new System.EventHandler(this.TxtSearchContent_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Magenta;
+            this.label1.Location = new System.Drawing.Point(1213, 47);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(115, 18);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Search Command";
+            // 
             // txtCommand
             // 
             this.txtCommand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -349,7 +377,7 @@
             this.txtCommand.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCommand.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCommand.ForeColor = System.Drawing.Color.Yellow;
-            this.txtCommand.Location = new System.Drawing.Point(1210, 136);
+            this.txtCommand.Location = new System.Drawing.Point(1210, 268);
             this.txtCommand.Name = "txtCommand";
             this.txtCommand.ReadOnly = true;
             this.txtCommand.Size = new System.Drawing.Size(450, 29);
@@ -362,10 +390,10 @@
             this.txtVersion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtVersion.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtVersion.ForeColor = System.Drawing.Color.Yellow;
-            this.txtVersion.Location = new System.Drawing.Point(1210, 316);
+            this.txtVersion.Location = new System.Drawing.Point(1467, 375);
             this.txtVersion.Name = "txtVersion";
             this.txtVersion.ReadOnly = true;
-            this.txtVersion.Size = new System.Drawing.Size(239, 29);
+            this.txtVersion.Size = new System.Drawing.Size(193, 29);
             this.txtVersion.TabIndex = 14;
             // 
             // label2
@@ -374,7 +402,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Calibri", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(1208, 113);
+            this.label2.Location = new System.Drawing.Point(1208, 245);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 18);
             this.label2.TabIndex = 9;
@@ -387,7 +415,7 @@
             this.txtSource.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSource.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSource.ForeColor = System.Drawing.Color.Yellow;
-            this.txtSource.Location = new System.Drawing.Point(1210, 257);
+            this.txtSource.Location = new System.Drawing.Point(1210, 321);
             this.txtSource.Name = "txtSource";
             this.txtSource.ReadOnly = true;
             this.txtSource.Size = new System.Drawing.Size(450, 29);
@@ -399,7 +427,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(1208, 174);
+            this.label3.Location = new System.Drawing.Point(1213, 353);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(37, 18);
             this.label3.TabIndex = 10;
@@ -412,10 +440,10 @@
             this.txtCommandType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCommandType.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCommandType.ForeColor = System.Drawing.Color.Yellow;
-            this.txtCommandType.Location = new System.Drawing.Point(1210, 198);
+            this.txtCommandType.Location = new System.Drawing.Point(1215, 376);
             this.txtCommandType.Name = "txtCommandType";
             this.txtCommandType.ReadOnly = true;
-            this.txtCommandType.Size = new System.Drawing.Size(450, 29);
+            this.txtCommandType.Size = new System.Drawing.Size(241, 29);
             this.txtCommandType.TabIndex = 16;
             // 
             // label4
@@ -424,7 +452,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Calibri", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(1208, 296);
+            this.label4.Location = new System.Drawing.Point(1465, 355);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 18);
             this.label4.TabIndex = 11;
@@ -436,7 +464,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Calibri", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(1208, 235);
+            this.label5.Location = new System.Drawing.Point(1208, 300);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(49, 18);
             this.label5.TabIndex = 12;
@@ -451,7 +479,7 @@
             this.btnGetCommandHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGetCommandHelp.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGetCommandHelp.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.btnGetCommandHelp.Location = new System.Drawing.Point(1210, 60);
+            this.btnGetCommandHelp.Location = new System.Drawing.Point(1210, 195);
             this.btnGetCommandHelp.Name = "btnGetCommandHelp";
             this.btnGetCommandHelp.Size = new System.Drawing.Size(450, 36);
             this.btnGetCommandHelp.TabIndex = 8;
@@ -471,7 +499,7 @@
             this.btnTheme.Name = "btnTheme";
             this.btnTheme.Size = new System.Drawing.Size(207, 29);
             this.btnTheme.TabIndex = 12;
-            this.btnTheme.Text = "Theme (Normal)";
+            this.btnTheme.Text = "Theme (Black)";
             this.btnTheme.UseVisualStyleBackColor = false;
             this.btnTheme.Click += new System.EventHandler(this.BtnTheme_Click);
             // 
@@ -532,6 +560,8 @@
         private System.Windows.Forms.Button btnGetCommandHelp;
         private System.Windows.Forms.Button btnFullView;
         private System.Windows.Forms.Button btnTheme;
+        private System.Windows.Forms.TextBox txtSearchContent;
+        private System.Windows.Forms.Label label1;
     }
 }
 
