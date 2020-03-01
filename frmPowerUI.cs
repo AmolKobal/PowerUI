@@ -22,6 +22,10 @@ namespace PowerUI
 
         private string BaseAddress = "./Help/";
 
+        private const string KEY_VERSION = "Version";
+
+        private Dictionary<string, string> VersionInfo = new Dictionary<string, string>();
+
         private bool isPowerShellAvailable = false;
         private FileInfo powerShellInfo;
 
@@ -66,10 +70,14 @@ namespace PowerUI
             objAllTypes.Add("(All)");
             objAllSources.Add("(All)");
 
-            lblPowerShellVersion.Text = $"PowerShell => {powerShellInfo.FullName} ({powerShellInfo.Length})";
+            Thread.Sleep(100);
+
+            VersionInfo.Clear();
+            ShowUpdate("Getting Powershell Info...");
+            string version = GetPowerShellVersion();
+            lblPowerShellVersion.Text = $"PowerShell => {powerShellInfo.FullName} ({version})";
             lblPowerShellVersion.Refresh();
 
-            Thread.Sleep(100);
             ShowUpdate("Getting All Commands...");
             GetAllPowerShellCommands();
 
@@ -85,6 +93,40 @@ namespace PowerUI
             grpList.Visible = true;
 
             ShowUpdate("All Commands loaded.");
+        }
+
+        private string GetPowerShellVersion()
+        {
+            File.Delete($"{BaseAddress}Host.txt");
+            string commands = "Get-Host";
+            string args = $">> '{BaseAddress}Host.txt'";
+            RunShellCommand(commands, args);
+
+            string[] lines = File.ReadAllLines($"{BaseAddress}Host.txt");
+            ParseVersion(lines);
+
+            if (VersionInfo.Keys.Contains(KEY_VERSION))
+            {
+                return VersionInfo[KEY_VERSION];
+            }
+
+            return "";
+        }
+
+        private void ParseVersion(string[] lines)
+        {
+            string[] separator = new string[1] { ":" };
+
+            string[] keyValue;
+            listCommands.BackColor = Color.White;
+            listCommands.Enabled = false;
+
+            foreach (string line in lines)
+            {
+                keyValue = line.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                if (keyValue.Length > 1)
+                    VersionInfo.Add(keyValue[0].Trim(), keyValue[1].Trim());
+            }
         }
 
         private void ShowUpdate(string message)
@@ -342,6 +384,13 @@ namespace PowerUI
 
             command = txtCommand.Text;
 
+            if (!ValidCommand(command))
+            {
+                MessageBox.Show($"No help content available for {command}", $"Get-Help {command}");
+                ShowUpdate("");
+                return;
+            }   
+
             //File.WriteAllText("CommandHelp.txt", "");
             txtCommandHelpDetails.Text = "";
 
@@ -360,6 +409,14 @@ namespace PowerUI
             grpDetails.Text = $" {command} ( {txtCommandType.Text} ) >";
             btnFullView.Visible = txtCommandHelpDetails.Text.Length > 0;
             grpDetails.Visible = txtCommandHelpDetails.Text.Length > 0;
+        }
+
+        private bool ValidCommand(string command)
+        {
+            if (command.Contains(":") || command.Contains("..") || command.Contains("\\"))
+                return false;
+
+            return true;
         }
 
         private string ParseCommandHelp(string helpText)
