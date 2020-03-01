@@ -48,6 +48,7 @@
             this.grpDetails = new System.Windows.Forms.GroupBox();
             this.btnFullView = new System.Windows.Forms.Button();
             this.grpList = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtSearchContent = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtCommand = new System.Windows.Forms.TextBox();
@@ -60,7 +61,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnGetCommandHelp = new System.Windows.Forms.Button();
             this.btnTheme = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.grpDetails.SuspendLayout();
             this.grpList.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -178,7 +178,6 @@
             // 
             this.btnSampleExample.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSampleExample.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
-            this.btnSampleExample.Enabled = false;
             this.btnSampleExample.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnSampleExample.FlatAppearance.BorderSize = 2;
             this.btnSampleExample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -196,7 +195,6 @@
             // 
             this.btnDetailedExample.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDetailedExample.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
-            this.btnDetailedExample.Enabled = false;
             this.btnDetailedExample.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnDetailedExample.FlatAppearance.BorderSize = 2;
             this.btnDetailedExample.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -214,7 +212,6 @@
             // 
             this.btnTechnicalInformation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTechnicalInformation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
-            this.btnTechnicalInformation.Enabled = false;
             this.btnTechnicalInformation.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnTechnicalInformation.FlatAppearance.BorderSize = 2;
             this.btnTechnicalInformation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -232,7 +229,6 @@
             // 
             this.btnOnlineHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOnlineHelp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
-            this.btnOnlineHelp.Enabled = false;
             this.btnOnlineHelp.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnOnlineHelp.FlatAppearance.BorderSize = 2;
             this.btnOnlineHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -344,6 +340,22 @@
             this.grpList.TabIndex = 11;
             this.grpList.TabStop = false;
             this.grpList.Visible = false;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.cmbSource);
+            this.groupBox1.Controls.Add(this.cmbType);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.ForeColor = System.Drawing.Color.Lime;
+            this.groupBox1.Location = new System.Drawing.Point(1206, 76);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(454, 103);
+            this.groupBox1.TabIndex = 19;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Filter";
             // 
             // txtSearchContent
             // 
@@ -501,22 +513,6 @@
             this.btnTheme.Text = "Theme (Black)";
             this.btnTheme.UseVisualStyleBackColor = false;
             this.btnTheme.Click += new System.EventHandler(this.BtnTheme_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.cmbSource);
-            this.groupBox1.Controls.Add(this.cmbType);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.ForeColor = System.Drawing.Color.Lime;
-            this.groupBox1.Location = new System.Drawing.Point(1206, 76);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(454, 103);
-            this.groupBox1.TabIndex = 19;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Filter";
             // 
             // frmPowerUI
             // 

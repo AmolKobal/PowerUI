@@ -20,6 +20,8 @@ namespace PowerUI
 
         private string GetHelp_Command = "Get-Help";
 
+        private string BaseAddress = "./Help/";
+
         private bool isPowerShellAvailable = false;
         private FileInfo powerShellInfo;
 
@@ -64,7 +66,7 @@ namespace PowerUI
             objAllTypes.Add("(All)");
             objAllSources.Add("(All)");
 
-            lblPowerShellVersion.Text = "PowerShell => " + powerShellInfo.FullName;
+            lblPowerShellVersion.Text = $"PowerShell => {powerShellInfo.FullName} ({powerShellInfo.Length})";
             lblPowerShellVersion.Refresh();
 
             Thread.Sleep(100);
@@ -73,7 +75,7 @@ namespace PowerUI
 
             ShowUpdate("Loading All Commands...");
 
-            string[] lines = File.ReadAllLines("AllCommands.txt");
+            string[] lines = File.ReadAllLines($"{BaseAddress}AllCommands.txt");
             ParseCommands(lines);
             cmbType.DataSource = objAllTypes;
             cmbSource.DataSource = objAllSources;
@@ -273,7 +275,7 @@ namespace PowerUI
 
         private void GetAllPowerShellCommands()
         {
-            if (File.Exists("AllCommands.txt"))
+            if (File.Exists($"{BaseAddress}AllCommands.txt"))
             {
                 return;
             }
@@ -284,7 +286,7 @@ namespace PowerUI
         private void GetAllCommands()
         {
             string commands = "Get-Command";
-            string args = ">> AllCommands.txt";
+            string args = $">> '{BaseAddress}AllCommands.txt'";
             RunShellCommand(commands, args);
         }
 
@@ -301,7 +303,7 @@ namespace PowerUI
 
             elapsedTime = 0;
             timeout.Elapsed += Timeout_Elapsed;
-            timeout.Enabled = false;
+            timeout.Enabled = true;
             timeout.Start();
 
             process.Start();
@@ -345,10 +347,10 @@ namespace PowerUI
 
             if (!File.Exists($"{command}-help.txt"))
             {
-                GetCommandHelp($"{txtCommand.Text} >> {command}-help.txt");
+                GetCommandHelp($"{txtCommand.Text} >> '{BaseAddress}{command}-help.txt'");
             }
 
-            txtCommandHelpDetails.Text = File.ReadAllText($"{command}-help.txt");
+            txtCommandHelpDetails.Text = File.ReadAllText($"{BaseAddress}{command}-help.txt");
 
             txtCommandHelpDetails.Text = ParseCommandHelp(txtCommandHelpDetails.Text);
             ShowUpdate("");
@@ -410,13 +412,24 @@ namespace PowerUI
 
             ListViewItem item = listCommands.SelectedItems[0];
 
-            txtCommand.Text = item.SubItems[0].Text;
-            txtCommandType.Text = item.SubItems[1].Text;
-            txtSource.Text = item.SubItems[2].Text;
-            txtVersion.Text = item.SubItems[3].Text;
+            CommandInfo info = new CommandInfo();
+            info.Name = item.SubItems[0].Text;
+            info.Type = item.SubItems[1].Text;
+            info.Source = item.SubItems[2].Text;
+            info.Version = item.SubItems[3].Text;
+
+            ShowCommandInfo(info);
         }
 
-         private void GetAdditionalHelpDetails(string command, string helpType)
+        private void ShowCommandInfo(CommandInfo item)
+        {
+            txtCommand.Text = item.Name;
+            txtCommandType.Text = item.Type;
+            txtSource.Text = item.Source;
+            txtVersion.Text = item.Version;
+        }
+
+        private void GetAdditionalHelpDetails(string command, string helpType)
         {
             DisableControls();
 
@@ -536,6 +549,7 @@ namespace PowerUI
 
         private void CmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ShowCommandInfo(new CommandInfo());
             LoadCommands(cmbType.Text, cmbSource.Text);
         }
 
@@ -586,4 +600,5 @@ namespace PowerUI
             fullViewMode = false;
         }
     }
+
 }
